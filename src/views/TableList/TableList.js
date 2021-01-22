@@ -48,22 +48,17 @@ export default function TableList() {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
+            <h4 className={classes.cardTitleWhite}>Transakcje</h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Lista ostatnich transakcji
             </p>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
+              tableHead={["ID", "Users", "Car", "Start Date", "End Date", "Price", "Is End", "Is Returned"]}
               tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
+                ["1", "dfgsdgf", "1", "2020-11-11", "2020-11-12", "500", "true", "true"],
               ]}
             />
           </CardBody>
@@ -73,35 +68,22 @@ export default function TableList() {
         <Card plain>
           <CardHeader plain color="primary">
             <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
+              Wydatki
             </h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Lista ostatnich wydatków
             </p>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
+              tableHead={["idSpendings", "Date", "CarID",  "CostID","Price"]}
               tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
+                ["1", "2021-03-05", "4", "5", "4523"],
+                ["2", "2011-10-01", "1", "2", "912"],
+                ["3", "2020-10-12", "2", "3", "250"],
+                ["4", "2020-11-05", "3", "3", "375"],
+                
               ]}
             />
           </CardBody>
