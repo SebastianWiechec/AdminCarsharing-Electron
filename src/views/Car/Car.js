@@ -58,6 +58,9 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      disabled: true
+                    }}
                   />
                 </GridItem>
                 
@@ -93,7 +96,7 @@ export default function CarProfile() {
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    labelText="Year of production"
+                    labelText="Year of production (yyyy)"
                     id="yofProd"
                     formControlProps={{
                       fullWidth: true
@@ -123,7 +126,7 @@ export default function CarProfile() {
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    labelText="Is available ?"
+                    labelText="Is available ? 0- no; 1- yes"
                     id="isAvailable"
                     formControlProps={{
                       fullWidth: true
@@ -134,7 +137,7 @@ export default function CarProfile() {
                 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    labelText="Insurance valid from"
+                    labelText="Insurance valid from (yyyy-mm-dd)"
                     id="insurance"
                     formControlProps={{
                       fullWidth: true
@@ -174,7 +177,7 @@ export default function CarProfile() {
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    labelText="Technical review from"
+                    labelText="Technical review from (yyyy-mm-dd)"
                     id="techRev"
                     formControlProps={{
                       fullWidth: true
