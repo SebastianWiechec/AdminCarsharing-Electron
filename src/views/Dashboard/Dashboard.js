@@ -5,7 +5,7 @@ import ChartistGraph from "react-chartist";
 import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Store from "@material-ui/icons/Store";
+//import Store from "@material-ui/icons/Store";
 import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
@@ -50,11 +50,11 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
-                <Icon>content_copy</Icon>
+                <Icon>local_taxi</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Used Space</p>
+              <p className={classes.cardCategory}>Ilość samochodów</p>
               <h3 className={classes.cardTitle}>
-                49/50 <small>GB</small>
+                49/50 <small>aut</small>
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -63,7 +63,7 @@ export default function Dashboard() {
                   <Warning />
                 </Danger>
                 <a href="#pablo" onClick={e => e.preventDefault()}>
-                  Get more space
+                  Sprawdź dostępne auta
                 </a>
               </div>
             </CardFooter>
@@ -73,15 +73,15 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
-                <Store />
+                <Icon>payments</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
+              <p className={classes.cardCategory}>Zyski</p>
+              <h3 className={classes.cardTitle}>34,245 PLN</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                Last 24 Hours
+                Ostatnie 24 godziny
               </div>
             </CardFooter>
           </Card>
@@ -90,15 +90,15 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
-                <Icon>info_outline</Icon>
+                <Icon>emoji_transportation</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
+              <p className={classes.cardCategory}>Auta w użyciu</p>
+              <h3 className={classes.cardTitle}>1</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <LocalOffer />
-                Tracked from Github
+                Sprawdź klientów
               </div>
             </CardFooter>
           </Card>
@@ -109,13 +109,13 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
-              <h3 className={classes.cardTitle}>+245</h3>
+              <p className={classes.cardCategory}>Klienci</p>
+              <h3 className={classes.cardTitle}>245</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Just Updated
+                Właśnie zaktualizowano
               </div>
             </CardFooter>
           </Card>
@@ -134,17 +134,17 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
+              <h4 className={classes.cardTitle}>Auta w użyciu</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   <ArrowUpward className={classes.upArrowCardCategory} /> 55%
                 </span>{" "}
-                increase in today sales.
+                wzrost.
               </p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
+                <AccessTime /> Zaktualizowano 2 minuty temu
               </div>
             </CardFooter>
           </Card>
@@ -162,12 +162,12 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Ilość nowych klientów</h4>
+              <p className={classes.cardCategory}>Nowy klienci w ciągu miesiąca</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> Zaktualizowano 2 minuty temu
               </div>
             </CardFooter>
           </Card>
@@ -184,12 +184,12 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Długość czasu wypożyczenia aut</h4>
+              <p className={classes.cardCategory}>Sumaryczny czas wypożyczenia aut</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> Zaktualizowano 2 minuty temu
               </div>
             </CardFooter>
           </Card>
@@ -240,9 +240,9 @@ export default function Dashboard() {
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+              <h4 className={classes.cardTitleWhite}>Transakcje</h4>
               <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
+                Najnowsze transakcje
               </p>
             </CardHeader>
             <CardBody>
