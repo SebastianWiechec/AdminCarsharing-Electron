@@ -47,7 +47,7 @@ export default function SpendingNew() {
   const classes = useStyles();
  
   const [state, setState] = React.useState({
-    cost: ''});
+    carId:'',cost: ''});
 const handleChange = (event) => {
     const name = event.target.name;
     setState({
@@ -67,17 +67,25 @@ const handleChange = (event) => {
             <CardBody>
               <GridContainer> 
 
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Select Your Car"
-                    id="idCar"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: true
-                    }}
-                  />
+              <GridItem>
+                    <FormControl required className={classes.formControl}>
+                        <InputLabel htmlFor="Car Id - required">Select car</InputLabel>
+                        <Select
+                        native
+                        value={state.carId}
+                        onChange={handleChange}
+                        name="carId"
+                        inputProps={{
+                            id: 'carId',
+                        }}
+                        >
+                        <option aria-label="None" value="" />
+                        <option value={1}>Pierwszy</option>
+                        <option value={2}>Drugi</option>
+                        </Select>
+                        
+                    </FormControl>
+                    
                 </GridItem>
                 
                 <GridItem>
@@ -105,7 +113,19 @@ const handleChange = (event) => {
                     </FormControl>
                     
                 </GridItem>
-
+                
+                <GridItem xs={12} sm={12} md={4}>
+                  <CustomInput
+                    labelText="Enter price"
+                    id="price"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      
+                    }}
+                  />
+                </GridItem>
                
               </GridContainer>
               
