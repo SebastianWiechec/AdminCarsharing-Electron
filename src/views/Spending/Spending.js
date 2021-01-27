@@ -40,13 +40,21 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
-const [cost, setCost] = React.useState('');
-const handleChange = (event) => {
-    setCost(event.target.value);
-  };
 
-export default function SpendingProfile() {
+
+export default function SpendingNew() {
+    
   const classes = useStyles();
+ 
+  const [state, setState] = React.useState({
+    cost: ''});
+const handleChange = (event) => {
+    const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
+    });
+  };
   return (
     <div>
       <GridContainer>
@@ -73,22 +81,29 @@ export default function SpendingProfile() {
                 </GridItem>
                 
                 <GridItem>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="cost">Cost type</InputLabel>
+                    <FormControl required className={classes.formControl}>
+                        <InputLabel htmlFor="cost type - required">Cost type</InputLabel>
                         <Select
-                        labelId="cost"
-                        id="cost"
-                        value={cost}
+                        native
+                        value={state.cost}
                         onChange={handleChange}
+                        name="cost"
+                        inputProps={{
+                            id: 'cost',
+                        }}
                         >
-                        <MenuItem value={1}>Tankowanie</MenuItem>
-                        <MenuItem value={2}>Wymiana opon</MenuItem>
-                        <MenuItem value={3}>Wymiana oleju</MenuItem>
-                        <MenuItem value={4}>Ubezpieczenie</MenuItem>
-                        <MenuItem value={5}>Przegląd</MenuItem>
-                        <MenuItem value={6}>Inne</MenuItem>
+                        <option aria-label="None" value="" />
+                        <option value={1}>Tankowanie</option>
+                        <option value={2}>Wymiana opon</option>
+                        <option value={3}>Wymiana oleju</option>
+                        <option value={4}>Ubezpieczenie</option>
+                        <option value={5}>Przegląd</option>
+                        <option value={6}>Inne</option>
+
                         </Select>
-                     </FormControl>
+                        
+                    </FormControl>
+                    
                 </GridItem>
 
                

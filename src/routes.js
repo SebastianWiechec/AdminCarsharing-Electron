@@ -35,6 +35,9 @@ import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import Car from "views/Car/Car";
+import SpendingNew from "views/Spending/Spending";
+import CarProfile from "views/Car/Car";
+
 
 
 const dashboardRoutes = [
@@ -62,6 +65,14 @@ const dashboardRoutes = [
     component: Car,
     layout: "/admin"
   },
+   {
+     path: "/Spending",
+     name: "Add spending",
+     rtlName: "ملف تعريفي للمستخدم",
+     icon: DriveEtaIcon,
+     component: SpendingNew,
+     layout: "/admin"
+   },
   {
     path: "/table",
     name: "Table List",
