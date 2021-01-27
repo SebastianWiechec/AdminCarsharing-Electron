@@ -39,7 +39,7 @@ import Car from "views/Car/Car";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
+    path: "/dashboard/:id",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
@@ -70,39 +70,6 @@ const dashboardRoutes = [
     component: TableList,
     layout: "/admin"
   }
-  // ,
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   rtlName: "طباعة",
-  //   icon: LibraryBooks,
-  //   component: Typography,
-  //   layout: "/admin"
-  // },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: BubbleChart,
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   rtlName: "خرائط",
-  //   icon: LocationOn,
-  //   component: Maps,
-  //   layout: "/admin"
-  // },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   rtlName: "إخطارات",
-  //   icon: Notifications,
-  //   component: NotificationsPage,
-  //   layout: "/admin"
-  // }
 ];
 
 export default dashboardRoutes;
