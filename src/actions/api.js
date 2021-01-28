@@ -21,7 +21,8 @@ export default {
             update: (id, updatedRecord) => axios.put(url + id, updatedRecord),
             delete: id => axios.delete(url + id),
             userLogin: user => axios.post(url + "/login", user),
-            userRegister: (password,user)=> axios.post(url + `/register?password=${password}`,user)
+            userRegister: (password,user)=> axios.post(url + `/register?password=${password}`,user),
+            fetchUserCars: id => axios.get(url + id)
         }
     }
 }

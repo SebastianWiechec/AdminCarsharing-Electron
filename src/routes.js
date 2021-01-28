@@ -37,6 +37,7 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import Car from "views/Car/Car";
 import SpendingNew from "views/Spending/Spending";
 import CarProfile from "views/Car/Car";
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 
 
@@ -66,10 +67,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
    {
-     path: "/Spending",
+     path: "/Spending/:id",
      name: "Add spending",
      rtlName: "ملف تعريفي للمستخدم",
-     icon: DriveEtaIcon,
+     icon: MonetizationOnIcon,
      component: SpendingNew,
      layout: "/admin"
    },
