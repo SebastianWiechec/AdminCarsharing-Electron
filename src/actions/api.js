@@ -17,12 +17,12 @@ export default {
         return {
             fetchAll: () => axios.get(url),
             fetchById: id => axios.get(url + id),
-            create: newRecord => axios.post(url + newRecord),
+            create: newRecord => axios.post(url,newRecord),
             update: (id, updatedRecord) => axios.put(url + id, updatedRecord),
             delete: id => axios.delete(url + id),
             userLogin: user => axios.post(url + "/login", user),
-            userRegister: (password,user)=> axios.post(url + `/register?password=${password}`,user),
-            fetchUserCars: id => axios.get(url + id)
+            userRegister: (password, user) => axios.post(url + `/register?password=${password}`, user),
+            fetchUserCars: id => axios.get(url + "/GetUserCars" + id)
         }
     }
 }

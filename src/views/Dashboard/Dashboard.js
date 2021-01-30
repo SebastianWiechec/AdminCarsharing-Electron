@@ -56,7 +56,7 @@ export default function Dashboard(props) {
   useEffect(() => {
     const fetchData = async () => {
       console.log(props.match.params.id);
-      const request = await api.request(API_TYPES.SPENDINGS).fetchById("/"+props.match.params.id);
+      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/"+props.match.params.id);
       // if (request.data == null)
       //   return <Redirect to={NotFoundPage} />
       setData(request.data);

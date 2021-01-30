@@ -51,9 +51,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SpendingNew(props) {
 
   const classes = useStyles();
-  const [costs, setCosts] = useState({});
+  const [costs, setCosts] = useState([]);
+  const [cars, setCars] = useState([]);
   const [state, setState] = React.useState({
-    carId: '', cost: ''
+    carId: 0, costId: 0, price:0
   });
 
 
@@ -61,10 +62,12 @@ export default function SpendingNew(props) {
     const fetchData = async () => {
 
       const costsResponse = await api.request(API_TYPES.COSTS).fetchAll();
-      const userCars = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/"+props.match.params.id);
-      // if (request.data == null)
-      //   return <Redirect to={NotFoundPage} />
+      const userCars = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/" + props.match.params.id);
+
       setCosts(costsResponse.data);
+      setCars(userCars.data);
+      console.log(userCars.data)
+      console.log(costsResponse.data)
 
     };
 
@@ -78,6 +81,19 @@ export default function SpendingNew(props) {
       [name]: event.target.value,
     });
   };
+
+  async function SendData(){
+    state.idSpendings = 0;
+    state.carId = parseInt(state.carId);
+    state.costId = parseInt(state.costId);
+    state.Date = new Date().toISOString().slice(0,10);
+    state.idUser = props.match.params.id;
+
+    await api.request(API_TYPES.SPENDINGS).create(state);
+
+  }
+
+
   return (
     <div>
       <GridContainer>
@@ -89,70 +105,71 @@ export default function SpendingNew(props) {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                  <GridItem xs={12} sm={12} md={5}>
-                    <InputLabel htmlFor="carId">Select car</InputLabel>
-                    <Select
-                      native
-                      value={state.carId}
-                      onChange={handleChange}
-                      name="carId"
-                      required
-                      fullWidth="true"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        id: 'carId',
-                      }}
-                    >
-                      <option aria-label="None" value="" />
-                      <option value={1}>Pierwszy</option>
-                      <option value={2}>Drugi</option>
-                    </Select>
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={5}>
-                    <InputLabel htmlFor="cost">Cost type</InputLabel>
-                    <Select
-                      native
-                      value={state.cost}
-                      onChange={handleChange}
-                      name="cost"
-                      fullWidth="true"
-                      required
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        id: 'cost',
-                      }}
-                    >
-                      <option aria-label="None" value="" />
-                      <option value={1}>Tankowanie</option>
-                      <option value={2}>Wymiana opon</option>
-                      <option value={3}>Wymiana oleju</option>
-                      <option value={4}>Ubezpieczenie</option>
-                      <option value={5}>Przegląd</option>
-                      <option value={6}>Inne</option>
+                <GridItem xs={12} sm={12} md={5}>
+                  <InputLabel htmlFor="carId">Select car</InputLabel>
+                  <Select
+                    native
+                    value={state.carId}
+                    onChange={handleChange}
+                    name="carId"
+                    required
+                    fullWidth="true"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      id: 'carId',
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    {cars.map((car, key) => (
+                      <option key={key} value={car.idCar}>{car.model}</option>
+                    ))}
+                  </Select>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={5}>
+                  <InputLabel htmlFor="cost">Cost type</InputLabel>
+                  <Select
+                    native
+                    value={state.cost}
+                    onChange={handleChange}
+                    name="costId"
+                    fullWidth="true"
+                    required
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      id: 'cost',
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    {costs.map((cost, key) => (
+                      <option key={key} value={cost.idCosts}>{cost.description}</option>
+                    ))}
 
-                    </Select>
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={5}>
-                    <CustomInput
-                      labelText="Enter price"
-                      id="price"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
 
-                      }}
-                    />
-                  </GridItem>
+                  </Select>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                    labelText="Enter price"
+                    id="price"
+                    name="price"
+                    onChange={handleChange}
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+
+                    }}
+                  />
+                </GridItem>
                 {/* </FormControl> */}
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Update Info</Button>
+              <Button color="primary" onClick={SendData}>Update Info</Button>
             </CardFooter>
           </Card>
         </GridItem>
