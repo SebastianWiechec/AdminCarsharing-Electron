@@ -38,6 +38,7 @@ import Car from "views/Car/Car";
 import SpendingNew from "views/Spending/Spending";
 import CarProfile from "views/Car/Car";
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import logList from "views/Logs/logs";
 
 
 
@@ -81,7 +82,16 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: TableList,
     layout: "/admin"
+  },
+  {
+    path: "/logs",
+    name: "Log List",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: logList,
+    layout: "/admin"
   }
+
 ];
 
 export default dashboardRoutes;
