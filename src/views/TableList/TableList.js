@@ -12,6 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import api, { API_TYPES } from "../../actions/api";
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 
 const styles = {
@@ -48,15 +49,14 @@ const useStyles = makeStyles(styles);
 
 export default function TableList(props) {
 
-  const [spendings1,setSpendings1] = useState([]);
+  const [spendings,setSpendings1] = useState([]);
 
   useEffect(() => {
       const fetchData = async () => {
         console.log(props.match.params.id);
         const request = await api.request(API_TYPES.SPENDINGS).fetchSpendings1("/"+props.match.params.id);
-        // if (request.data == null)
-        //   return <Redirect to={NotFoundPage} />
         setSpendings1(request.data);
+  
         console.log(request.data);
       };
   
@@ -99,13 +99,7 @@ export default function TableList(props) {
             <Table
               tableHeaderColor="primary"
               tableHead={["idSpendings", "Date", "CarID",  "CostID","Price"]}
-              tableData={[
-                ["1", "2021-03-05", "4", "5", "4523"],
-                ["2", "2011-10-01", "1", "2", "912"],
-                ["3", "2020-10-12", "2", "3", "250"],
-                ["4", "2020-11-05", "3", "3", "375"],
-                
-              ]}
+              tableData={spendings}
             />
           </CardBody>
         </Card>
