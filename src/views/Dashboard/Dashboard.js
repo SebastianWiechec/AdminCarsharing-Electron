@@ -54,6 +54,7 @@ export default function Dashboard(props) {
 
   const cookies = new Cookies();
   let userId =cookies.get('userId');
+  console.log(userId);
 
   useEffect(() => {
     const fetchData = async () => {

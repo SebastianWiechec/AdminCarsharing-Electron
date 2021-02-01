@@ -20,13 +20,10 @@ import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
-  // let iduser = props.location.pathname;
-  // iduser = iduser.substring(iduser.lastIndexOf("/")+1);
-
-
 
   const cookies = new Cookies();
   let userId = cookies.get('userId');
+  console.log(userId);
 
   const classes = useStyles();
   // verifies if routeName is the one active (in browser input)
