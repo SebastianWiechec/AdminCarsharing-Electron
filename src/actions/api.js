@@ -24,6 +24,7 @@ export default {
             userRegister: (password, user) => axios.post(url + `/register?password=${password}`, user),
             fetchUserCars: id => axios.get(url + "/GetUserCars" + id),
             fetchLogs: id => axios.get(url + "/GetLogs" + id),
+            fetchSpendings1: id => axios.get(url + "/GetSpendings" + id),
         }
     }
 }
