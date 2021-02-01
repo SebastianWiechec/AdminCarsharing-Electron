@@ -31,7 +31,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import api, { API_TYPES } from "../../actions/api";
-
+import Cookies from 'universal-cookie';
 import { bugs, website, server } from "variables/general.js";
 
 import {
@@ -52,11 +52,13 @@ export default function Dashboard(props) {
   const [carDesc, setData] = useState({});
   const [spendings, setSpendings] = useState({});
 
+  const cookies = new Cookies();
+  let userId =cookies.get('userId');
 
   useEffect(() => {
     const fetchData = async () => {
       console.log(props.match.params.id);
-      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/"+props.match.params.id);
+      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/"+userId);
       // if (request.data == null)
       //   return <Redirect to={NotFoundPage} />
       setData(request.data);

@@ -13,15 +13,21 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
-
+import Cookies from 'universal-cookie';
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
-  let iduser = props.location.pathname;
-  iduser = iduser.substring(iduser.lastIndexOf("/")+1);
+  // let iduser = props.location.pathname;
+  // iduser = iduser.substring(iduser.lastIndexOf("/")+1);
+
+
+
+  const cookies = new Cookies();
+  let userId = cookies.get('userId');
+
   const classes = useStyles();
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
@@ -48,7 +54,7 @@ export default function Sidebar(props) {
         });
         return (
           <NavLink
-            to={prop.layout + prop.path.replace(":id","")+ iduser}
+            to={prop.layout + prop.path.replace(":id", "") + userId}
             className={activePro + classes.item}
             activeClassName="active"
             key={key}
