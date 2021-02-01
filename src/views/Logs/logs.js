@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,7 +42,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function logList() {
+export default function logList(props) {
   const classes = useStyles();
   return (
     <GridContainer>

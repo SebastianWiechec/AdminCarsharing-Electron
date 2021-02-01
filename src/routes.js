@@ -52,7 +52,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
+    path: "/user/:id",
     name: "User Profile",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
@@ -60,7 +60,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/Car",
+    path: "/Car/:id",
     name: "Car add-edit",
     rtlName: "ملف تعريفي للمستخدم",
     icon: DriveEtaIcon,
@@ -76,7 +76,7 @@ const dashboardRoutes = [
      layout: "/admin"
    },
   {
-    path: "/table",
+    path: "/table/:id",
     name: "Table List",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
@@ -84,7 +84,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/logs",
+    path: "/logs/:id",
     name: "Log List",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
