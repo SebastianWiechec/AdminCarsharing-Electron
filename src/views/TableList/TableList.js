@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+//import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -8,6 +10,9 @@ import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import api, { API_TYPES } from "../../actions/api";
+import React, { useState, useEffect } from 'react';
+
 
 const styles = {
   cardCategoryWhite: {
@@ -41,7 +46,23 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function TableList() {
+export default function TableList(props) {
+
+  const [spendings1,setSpendings1] = useState([]);
+
+  useEffect(() => {
+      const fetchData = async () => {
+        console.log(props.match.params.id);
+        const request = await api.request(API_TYPES.SPENDINGS).fetchSpendings1("/"+props.match.params.id);
+        // if (request.data == null)
+        //   return <Redirect to={NotFoundPage} />
+        setSpendings1(request.data);
+        console.log(request.data);
+      };
+  
+      fetchData();
+    }, []);
+
   const classes = useStyles();
   return (
     <GridContainer>

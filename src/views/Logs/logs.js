@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+//import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -9,6 +9,10 @@ import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import api, { API_TYPES } from "../../actions/api";
+import React, { useState, useEffect } from 'react';
+
+
 
 const styles = {
   cardCategoryWhite: {
@@ -43,6 +47,20 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function logList(props) {
+  const [logs, setLogs] = useState([]);
+
+useEffect(() => {
+    const fetchData = async () => {
+      console.log(props.match.params.id);
+      const request = await api.request(API_TYPES.SPENDINGS).fetchLogs("/"+props.match.params.id);
+      // if (request.data == null)
+      //   return <Redirect to={NotFoundPage} />
+      setLogs(request.data);
+      console.log(request.data);
+    };
+
+    fetchData();
+  }, []);
   const classes = useStyles();
   return (
     <GridContainer>
@@ -51,7 +69,7 @@ export default function logList(props) {
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Logi</h4>
             <p className={classes.cardCategoryWhite}>
-              Liszta czynności w aplikacji
+              Lista czynności w aplikacji
             </p>
           </CardHeader>
           <CardBody>
