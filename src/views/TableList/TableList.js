@@ -54,7 +54,7 @@ export default function TableList(props) {
   useEffect(() => {
       const fetchData = async () => {
         console.log(props.match.params.id);
-        const request = await api.request(API_TYPES.SPENDINGS).fetchSpendings1("/"+props.match.params.id);
+        const request = await api.request(API_TYPES.SPENDINGS).fetchSpendings("/"+props.match.params.id);
         setSpendings1(request.data);
   
         console.log(request.data);

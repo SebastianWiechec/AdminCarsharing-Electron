@@ -49,10 +49,10 @@ const useStyles = makeStyles(styles);
 export default function logList(props) {
   const [logs, setLogs] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       console.log(props.match.params.id);
-      const request = await api.request(API_TYPES.SPENDINGS).fetchLogs("/"+props.match.params.id);
+      const request = await api.request(API_TYPES.SPENDINGS).fetchLogs("/" + props.match.params.id);
       // if (request.data == null)
       //   return <Redirect to={NotFoundPage} />
       setLogs(request.data);
@@ -61,6 +61,38 @@ useEffect(() => {
 
     fetchData();
   }, []);
+
+  let newLogs = new Array();
+  logs.forEach(element => {
+
+    let timestamp;
+    let level;
+    let message;
+    for (let [key, value] of Object.entries(element)) {
+
+
+
+      if (key == "timestamp") {
+        timestamp = value.substring(0, value.indexOf(" "));
+      }
+      if (key == "level") {
+        level = value;
+      }
+      if (key == "message") {
+        let mes = value.substring(0, value.indexOf(","))
+        let carId = value.substring(value.lastIndexOf(","));
+        message = `${mes} ${carId}`;
+      }
+    }
+
+    newLogs.push({
+      timestamp: timestamp,
+      level: level,
+      message: message
+    })
+  });
+  console.log(newLogs)
+
   const classes = useStyles();
   return (
     <GridContainer>
@@ -75,15 +107,13 @@ useEffect(() => {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Data", "Typ logu", "Opis", "Dodatkowe info"]}
-              tableData={[
-                ["2020-11-11", "Information", "Dodano wydatki!", "Car: 2"],
-              ]}
+              tableHead={["Data", "Typ logu", "Opis"]}
+              tableData={newLogs}
             />
           </CardBody>
         </Card>
       </GridItem>
-      
+
     </GridContainer>
   );
 }

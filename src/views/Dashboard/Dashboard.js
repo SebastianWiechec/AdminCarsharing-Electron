@@ -50,20 +50,59 @@ const useStyles = makeStyles(styles);
 export default function Dashboard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [carDesc, setData] = useState({});
-  const [spendings, setSpendings] = useState({});
+  const [spendings, setSpendings] = useState([]);
+
+  let newDatalabels = new Array();
+  let newDataseries = new Array();
+
+  var map = spendings.reduce(function (map, spending) {
+    var date = spending.date
+    var price = +spending.price
+    map[date] = (map[date] || 0) + price
+    return map
+  }, {})
+
+  // console.log(map)
+
+  var array = Object.keys(map).map(function (date) {
+    return {
+      date: date.substring(0, date.indexOf("T")),
+      price: map[date]
+    }
+  })
+
+  console.log(array)
+
+  array.forEach(element => {
+
+    for (let [key, value] of Object.entries(element)) {
+      if (key == "date") {
+        newDatalabels.push(value.toString())
+      }
+      if (key == "price") {
+        newDataseries.push(value.toString())
+      }
+    }
+  });
+
+  console.log(newDatalabels);
+  console.log(newDataseries);
+
+  emailsSubscriptionChart.data.labels = newDatalabels
+  emailsSubscriptionChart.data.series = [newDataseries];
 
   const cookies = new Cookies();
-  let userId =cookies.get('userId');
+  let userId = cookies.get('userId');
   console.log(userId);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(props.match.params.id);
-      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/"+userId);
-      // if (request.data == null)
-      //   return <Redirect to={NotFoundPage} />
+      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/" + userId);
+      const userSpendings = await api.request(API_TYPES.SPENDINGS).fetchSpendings("/" + userId);
+
       setData(request.data);
-      console.log(request.data);
+      setSpendings(userSpendings.data);
+      console.log(userSpendings.data);
     };
 
     fetchData();
@@ -148,8 +187,8 @@ export default function Dashboard(props) {
           </Card>
         </GridItem>
       </GridContainer>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
+      <GridContainer height="200px">
+        {/* <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="success">
               <ChartistGraph
@@ -175,8 +214,8 @@ export default function Dashboard(props) {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        </GridItem> */}
+        <GridItem xs={12} sm={12} md={12}>
           <Card chart>
             <CardHeader color="warning">
               <ChartistGraph
@@ -199,7 +238,7 @@ export default function Dashboard(props) {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        {/* <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="danger">
               <ChartistGraph
@@ -220,7 +259,7 @@ export default function Dashboard(props) {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
+        </GridItem> */}
       </GridContainer>
       <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
