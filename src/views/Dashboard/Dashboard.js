@@ -49,8 +49,42 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
   const [expanded, setExpanded] = React.useState(false);
-  const [carDesc, setData] = useState({});
+  const [carDesc, setData] = useState([{}]);
   const [spendings, setSpendings] = useState([]);
+
+
+  let newCars = new Array();
+  carDesc.forEach(element => {
+
+    let manufacturer;
+    let model;
+    let color;
+    let yofProd;
+
+    for (let [key, value] of Object.entries(element)) {
+      if (key == "manufacturer") {
+        manufacturer = value;
+      }
+      if (key == "model") {
+        model = value;
+      }
+      if (key == "color") {
+        color = value;
+      }
+      if (key == "yofProd") {
+        yofProd = value;
+      }
+    }
+
+    newCars.push({
+      manufacturer: manufacturer,
+      model: model,
+      color: color,
+      yofProd: yofProd
+    })
+  });
+  console.log(newCars)
+
 
   let newDatalabels = new Array();
   let newDataseries = new Array();
@@ -69,9 +103,9 @@ export default function Dashboard(props) {
       date: date.substring(0, date.indexOf("T")),
       price: map[date]
     }
-  })
+  });
 
-  console.log(array)
+  const sumValues = array.reduce((total, obj) => obj.price + total, 0);
 
   array.forEach(element => {
 
@@ -85,15 +119,15 @@ export default function Dashboard(props) {
     }
   });
 
-  console.log(newDatalabels);
-  console.log(newDataseries);
+  // console.log(newDatalabels);
+  // console.log(newDataseries);
 
   emailsSubscriptionChart.data.labels = newDatalabels
   emailsSubscriptionChart.data.series = [newDataseries];
 
   const cookies = new Cookies();
   let userId = cookies.get('userId');
-  console.log(userId);
+  // console.log(userId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,7 +146,7 @@ export default function Dashboard(props) {
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        {/* <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
@@ -134,42 +168,42 @@ export default function Dashboard(props) {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        </GridItem> */}
+        <GridItem xs={12} sm={6} md={6}>
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
                 <Icon>payments</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Zyski</p>
-              <h3 className={classes.cardTitle}>34,245 PLN</h3>
+              <p className={classes.cardCategory}>Wydatki</p>
+              <h3 className={classes.cardTitle}>{sumValues} PLN</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                Ostatnie 24 godziny
+                Twoje wydatki
               </div>
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={6}>
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>emoji_transportation</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>Auta w użyciu</p>
-              <h3 className={classes.cardTitle}>1</h3>
+              <h3 className={classes.cardTitle}>{carDesc.length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <LocalOffer />
-                Sprawdź klientów
+                Twoje auta
               </div>
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        {/* <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
@@ -185,9 +219,9 @@ export default function Dashboard(props) {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
+        </GridItem> */}
       </GridContainer>
-      <GridContainer height="200px">
+      <GridContainer>
         {/* <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="success">
@@ -228,8 +262,8 @@ export default function Dashboard(props) {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Ilość nowych klientów</h4>
-              <p className={classes.cardCategory}>Nowy klienci w ciągu miesiąca</p>
+              <h4 className={classes.cardTitle}>Wszystkie wydatki</h4>
+              <p className={classes.cardCategory}>rozłożone w czasie</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
@@ -262,7 +296,7 @@ export default function Dashboard(props) {
         </GridItem> */}
       </GridContainer>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={6}>
+        {/* <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
             title="Tasks:"
             headerColor="primary"
@@ -302,25 +336,21 @@ export default function Dashboard(props) {
               }
             ]}
           />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={6}>
+        </GridItem> */}
+        <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Transakcje</h4>
+            <CardHeader color="success">
+              <h4 className={classes.cardTitleWhite}>Samochody</h4>
               <p className={classes.cardCategoryWhite}>
-                Najnowsze transakcje
+                Twoje Samochody
               </p>
             </CardHeader>
             <CardBody>
               <Table
-                tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South"]
-                ]}
+                tableHeaderColor="success"
+                tableHead={["Producent", "Model", "Kolor","Rok prod"]}
+                tableData={
+                  newCars}
               />
             </CardBody>
           </Card>

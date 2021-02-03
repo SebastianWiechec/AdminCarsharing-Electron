@@ -74,7 +74,7 @@ export default function TableList(props) {
       for (let [key, value] of Object.entries(element)) {
     
         if (key == "date") {
-          date = value;
+          date = value.substring(0, value.indexOf("T"));
         }
         if (key == "carID") {
           carID = value;
@@ -133,8 +133,8 @@ export default function TableList(props) {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={"Date", "CarID","CostID","Price"}
-              tableData={spendings}
+              tableHead={["Date", "CarID","CostID","Price"]}
+              tableData={newSpendings}
             />
           </CardBody>
         </Card>

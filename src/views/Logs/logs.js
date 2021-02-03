@@ -69,9 +69,6 @@ export default function logList(props) {
     let level;
     let message;
     for (let [key, value] of Object.entries(element)) {
-
-
-
       if (key == "timestamp") {
         timestamp = value.substring(0, value.indexOf(" "));
       }
@@ -84,7 +81,7 @@ export default function logList(props) {
         message = `${mes} ${carId}`;
       }
     }
-
+    
     newLogs.push({
       timestamp: timestamp,
       level: level,
