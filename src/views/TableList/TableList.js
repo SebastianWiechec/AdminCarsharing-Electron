@@ -63,6 +63,41 @@ export default function TableList(props) {
       fetchData();
     }, []);
 
+    let newSpendings = new Array();
+    spendings.forEach(element => {
+  
+      let date;
+      let carID;
+      let costID;
+      let price;
+
+      for (let [key, value] of Object.entries(element)) {
+    
+        if (key == "date") {
+          date = value;
+        }
+        if (key == "carID") {
+          carID = value;
+        }
+        if (key == "costID") {
+          costID = value;
+        }
+        if (key == "price") {
+          price = value;
+        }
+        
+      }
+  
+      newSpendings.push({
+        date: date,
+        carID: carID,
+        costID: costID,
+        price:price
+
+      })
+    });
+    console.log(newSpendings)
+
   const classes = useStyles();
   return (
     <GridContainer>
@@ -98,7 +133,7 @@ export default function TableList(props) {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["idSpendings", "Date", "CarID",  "CostID","Price"]}
+              tableHead={"Date", "CarID","CostID","Price"}
               tableData={spendings}
             />
           </CardBody>
