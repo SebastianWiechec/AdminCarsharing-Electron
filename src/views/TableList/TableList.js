@@ -63,10 +63,45 @@ export default function TableList(props) {
       fetchData();
     }, []);
 
+    let newSpendings = new Array();
+    spendings.forEach(element => {
+  
+      let date;
+      let carID;
+      let costID;
+      let price;
+
+      for (let [key, value] of Object.entries(element)) {
+    
+        if (key == "date") {
+          date = value;
+        }
+        if (key == "carID") {
+          carID = value;
+        }
+        if (key == "costID") {
+          costID = value;
+        }
+        if (key == "price") {
+          price = value;
+        }
+        
+      }
+  
+      newSpendings.push({
+        date: date,
+        carID: carID,
+        costID: costID,
+        price:price
+
+      })
+    });
+    console.log(newSpendings)
+
   const classes = useStyles();
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+      {/* <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Transakcje</h4>
@@ -84,7 +119,7 @@ export default function TableList(props) {
             />
           </CardBody>
         </Card>
-      </GridItem>
+      </GridItem> */}
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary">
@@ -98,7 +133,7 @@ export default function TableList(props) {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["idSpendings", "Date", "CarID",  "CostID","Price"]}
+              tableHead={"Date", "CarID","CostID","Price"}
               tableData={spendings}
             />
           </CardBody>
