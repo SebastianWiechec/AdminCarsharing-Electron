@@ -21,8 +21,9 @@ const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
 
-  const cookies = new Cookies();
-  let userId = cookies.get('userId');
+  // const cookies = new Cookies();
+  let userId =  localStorage.getItem('userId');
+  // let userId = cookies.get('userId');
   console.log(userId);
 
   const classes = useStyles();

@@ -122,7 +122,8 @@ export default function Dashboard(props) {
   emailsSubscriptionChart.data.series = [newDataseries];
 
   const cookies = new Cookies();
-  let userId = cookies.get("userId");
+  let userId = props.match.params.id;
+  //cookies.get("userId");
   // console.log(userId);
 
   useEffect(() => {
@@ -175,13 +176,13 @@ export default function Dashboard(props) {
               <CardIcon color="success">
                 <Icon>payments</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Wydatki</p>
+              <p className={classes.cardCategory}>Wydatki Admin</p>
               <h3 className={classes.cardTitle}>{sumValues} PLN</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                Twoje wydatki
+                AdminTwoje wydatki 
               </div>
             </CardFooter>
           </Card>
