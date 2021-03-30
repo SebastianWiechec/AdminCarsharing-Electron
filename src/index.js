@@ -19,6 +19,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
+import SignInSide from "views/SignIn/SignIn";
+import SignUp from "views/SignIn/Register";
 
 // core components
 import Admin from "layouts/Admin.js";
@@ -29,8 +31,11 @@ const hist = createBrowserHistory();
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/admin/:id" component={Admin} />
-      <Redirect from="/" to="/admin/dashboard/:id" />
+      <Route path="/admin/" component={Admin} />
+      <Route path="/SignIn/" component={SignInSide} />
+      <Route path="/Register/" component={SignUp} />
+      {/* <Redirect from="/" to="/SignIn/" /> */}
+      <Redirect from="/" to="/admin/dashboard/" />
     </Switch>
   </Router>,
   document.getElementById("root")

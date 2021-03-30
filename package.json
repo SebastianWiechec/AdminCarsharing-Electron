@@ -3,13 +3,18 @@
   "version": "1.9.0",
   "description": "Material Dashboard React. Coded by Creative Tim",
   "private": false,
-  "main": "dist/index.js",
+  "homepage": "./",
+  "main": "./electron/main.js",
   "dependencies": {
     "@material-ui/core": "4.10.0",
     "@material-ui/icons": "4.9.1",
     "axios": "^0.21.1",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
+    "concurrently": "^6.0.0",
+    "electron": "^12.0.1",
+    "electron-builder": "^22.10.5",
+    "electron-is-dev": "^2.0.0",
     "history": "4.10.1",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
@@ -21,11 +26,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-swipeable-views": "0.13.9",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "wait-on": "^5.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "ebuild": "npm run build && node_modules/.bin/build",
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
@@ -44,8 +52,7 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
   },
-  "homepage": "https://creativetimofficial.github.io/material-dashboard-react/#/dashboard",
-  "optionalDependencies": {
+    "optionalDependencies": {
     "@types/googlemaps": "3.39.6",
     "@types/markerclustererplus": "2.1.33",
     "ajv": "6.12.2",

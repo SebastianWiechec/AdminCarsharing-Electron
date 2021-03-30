@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from 'react';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -13,6 +13,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
+import api, { API_TYPES } from "../../actions/api";
 
 import avatar from "assets/img/faces/marc.jpg";
 
@@ -35,10 +36,48 @@ const styles = {
   }
 };
 
-const useStyles = makeStyles(styles);
 
-export default function CarProfile() {
+
+export default function CarProfile(props) {
+
+
+  const [car, setCar] = useState({idCar:0});
+
+  
+
+  const useStyles = makeStyles(styles);
   const classes = useStyles();
+  console.log("tu")
+  const handleChange = (event) => {
+    console.log("tu")
+    const name = event.target.id;
+    setCar({
+      ...car,
+      [name]: event.target.value,
+    });
+  };
+
+  
+  async function SendData(){
+
+    car.idCar = parseInt(car.idCar);
+    car.yofProd = parseInt(car.yofProd);
+    car.kilometers = parseInt(car.kilometers);
+    car.priceDay = parseFloat(car.priceDay);
+    car.isAvailable = parseInt(car.isAvailable);
+    car.segment = parseInt(car.segment);
+    car.insurance = new Date (car.insurance);
+    car.techRev = new Date (car.techRev);
+    // state.idSpendings = 0;
+    // state.carId = parseInt(state.carId);
+    // state.costId = parseInt(state.costId);
+    // state.Date = new Date().toISOString().slice(0,10);
+    // state.idUser = props.match.params.id;
+
+    await api.request(API_TYPES.CAR).create(car);
+
+  }
+
   return (
     <div>
       <GridContainer>
@@ -55,13 +94,17 @@ export default function CarProfile() {
                   <CustomInput
                     labelText="Car Id"
                     id="idCar"
+                    name="idCar"
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{
-                      disabled: true
+                    required
+                     inputProps={{
+                      onChange: handleChange,
+                      type: "number"
                     }}
                   />
+
                 </GridItem>
                 
                 <GridItem xs={12} sm={12} md={4}>
@@ -70,6 +113,10 @@ export default function CarProfile() {
                     id="manufacturer"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -81,6 +128,10 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
 
@@ -90,6 +141,10 @@ export default function CarProfile() {
                     id="color"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -101,6 +156,10 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
 
@@ -110,6 +169,10 @@ export default function CarProfile() {
                     id="kilometers"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -121,6 +184,10 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
 
@@ -130,6 +197,10 @@ export default function CarProfile() {
                     id="isAvailable"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -142,6 +213,10 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
 
@@ -151,6 +226,10 @@ export default function CarProfile() {
                     id="segment"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -162,6 +241,10 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
 
@@ -171,6 +254,10 @@ export default function CarProfile() {
                     id="filePath"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
                     }}
                   />
                 </GridItem>
@@ -182,55 +269,20 @@ export default function CarProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    required
+                     inputProps={{
+                      onChange: handleChange
+                    }}
                   />
                 </GridItem>
-
-                
 
               </GridContainer>
-              {/* <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
-                  <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                    id="about-me"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5
-                    }}
-                  />
-                </GridItem>
-              </GridContainer> */}
-            </CardBody>
+             </CardBody>
             <CardFooter>
-              <Button color="primary">Update Info</Button>
+            <Button color="primary" onClick={SendData}>Update Info</Button>
             </CardFooter>
           </Card>
         </GridItem>
-        {/* <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#" onClick={e => e.preventDefault()}>
-                <img src={avatar} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-              <Button color="primary" round>
-                Follow
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem> */}
       </GridContainer>
     </div>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -31,19 +31,19 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import api, { API_TYPES } from "../../actions/api";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import { bugs, website, server } from "variables/general.js";
+import Button from "components/CustomButtons/Button.js";
 
 import {
   dailySalesChart,
   emailsSubscriptionChart,
-  completedTasksChart
+  completedTasksChart,
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
-
-
+async function SendData() {}
 
 const useStyles = makeStyles(styles);
 
@@ -52,10 +52,8 @@ export default function Dashboard(props) {
   const [carDesc, setData] = useState([{}]);
   const [spendings, setSpendings] = useState([]);
 
-
   let newCars = new Array();
-  carDesc.forEach(element => {
-
+  carDesc.forEach((element) => {
     let manufacturer;
     let model;
     let color;
@@ -80,41 +78,39 @@ export default function Dashboard(props) {
       manufacturer: manufacturer,
       model: model,
       color: color,
-      yofProd: yofProd
-    })
+      yofProd: yofProd,
+    });
   });
-  console.log(newCars)
-
+  console.log(newCars);
 
   let newDatalabels = new Array();
   let newDataseries = new Array();
 
   var map = spendings.reduce(function (map, spending) {
-    var date = spending.date
-    var price = +spending.price
-    map[date] = (map[date] || 0) + price
-    return map
-  }, {})
+    var date = spending.date;
+    var price = +spending.price;
+    map[date] = (map[date] || 0) + price;
+    return map;
+  }, {});
 
   // console.log(map)
 
   var array = Object.keys(map).map(function (date) {
     return {
       date: date.substring(0, date.indexOf("T")),
-      price: map[date]
-    }
+      price: map[date],
+    };
   });
 
   const sumValues = array.reduce((total, obj) => obj.price + total, 0);
 
-  array.forEach(element => {
-
+  array.forEach((element) => {
     for (let [key, value] of Object.entries(element)) {
       if (key == "date") {
-        newDatalabels.push(value.toString())
+        newDatalabels.push(value.toString());
       }
       if (key == "price") {
-        newDataseries.push(value.toString())
+        newDataseries.push(value.toString());
       }
     }
   });
@@ -122,17 +118,21 @@ export default function Dashboard(props) {
   // console.log(newDatalabels);
   // console.log(newDataseries);
 
-  emailsSubscriptionChart.data.labels = newDatalabels
+  emailsSubscriptionChart.data.labels = newDatalabels;
   emailsSubscriptionChart.data.series = [newDataseries];
 
   const cookies = new Cookies();
-  let userId = cookies.get('userId');
+  let userId = cookies.get("userId");
   // console.log(userId);
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await api.request(API_TYPES.SPENDINGS).fetchUserCars("/" + userId);
-      const userSpendings = await api.request(API_TYPES.SPENDINGS).fetchSpendings("/" + userId);
+      const request = await api
+        .request(API_TYPES.SPENDINGS)
+        .fetchUserCars("/" + userId);
+      const userSpendings = await api
+        .request(API_TYPES.SPENDINGS)
+        .fetchSpendings("/" + userId);
 
       setData(request.data);
       setSpendings(userSpendings.data);
@@ -262,9 +262,37 @@ export default function Dashboard(props) {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Wszystkie wydatki</h4>
-              <p className={classes.cardCategory}>rozłożone w czasie</p>
+              <GridContainer
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <GridItem xs={6} sm={6} md={6}>
+                  <h4 className={classes.cardTitle}>Wszystkie wydatki</h4>
+                  <p className={classes.cardCategory}>rozłożone w czasie</p>
+                </GridItem>
+
+                <GridItem
+                  xs={3}
+                  sm={3}
+                  md={3}
+                  container
+                  direction="row"
+                  justify="flex-end"
+                  alignItems="center"
+                >
+                  <Button
+                    // className={classes.cardTitle}
+                    color="primary"
+                    onClick={SendData}
+                  >
+                    Wyślij Koszty mailem
+                  </Button>
+                </GridItem>
+              </GridContainer>
             </CardBody>
+
             <CardFooter chart>
               <div className={classes.stats}>
                 <AccessTime /> Zaktualizowano 2 minuty temu
@@ -341,16 +369,13 @@ export default function Dashboard(props) {
           <Card>
             <CardHeader color="success">
               <h4 className={classes.cardTitleWhite}>Samochody</h4>
-              <p className={classes.cardCategoryWhite}>
-                Twoje Samochody
-              </p>
+              <p className={classes.cardCategoryWhite}>Twoje Samochody</p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="success"
-                tableHead={["Producent", "Model", "Kolor","Rok prod"]}
-                tableData={
-                  newCars}
+                tableHead={["Producent", "Model", "Kolor", "Rok prod"]}
+                tableData={newCars}
               />
             </CardBody>
           </Card>

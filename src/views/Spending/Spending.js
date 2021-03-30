@@ -73,8 +73,9 @@ export default function SpendingNew(props) {
 
     fetchData();
   }, []);
-
+  console.log("tu")
   const handleChange = (event) => {
+    console.log("tu")
     const name = event.target.name;
     setState({
       ...state,
