@@ -43,7 +43,7 @@ import {
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
-async function SendData() {}
+
 
 const useStyles = makeStyles(styles);
 
@@ -125,6 +125,18 @@ export default function Dashboard(props) {
   let userId = props.match.params.id;
   //cookies.get("userId");
   // console.log(userId);
+
+  async function SendData() {
+    let email = {
+      From: localStorage.getItem('user'),
+      To: "adrianmastalerz01@gmail.com",
+      Subject: `Wydatki użytkownika ${localStorage.getItem('user')}`,
+      Html: "",
+      IdUser: userId
+    };
+    console.log(email)
+    await api.request(API_TYPES.SPENDINGS).sendEmail(email);
+  }
 
   useEffect(() => {
     const fetchData = async () => {

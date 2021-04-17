@@ -54,7 +54,7 @@ export default function SpendingNew(props) {
   const [costs, setCosts] = useState([]);
   const [cars, setCars] = useState([]);
   const [state, setState] = React.useState({
-    carId: 0, costId: 0, price:0
+    carId: 0, costId: 0
   });
 
 
@@ -76,7 +76,7 @@ export default function SpendingNew(props) {
   console.log("tu")
   const handleChange = (event) => {
     console.log("tu")
-    const name = event.target.name;
+    const name = event.target.id;
     setState({
       ...state,
       [name]: event.target.value,
@@ -87,10 +87,11 @@ export default function SpendingNew(props) {
     state.idSpendings = 0;
     state.carId = parseInt(state.carId);
     state.costId = parseInt(state.costId);
+    state.price = parseInt(state.price);
     state.Date = new Date().toISOString().slice(0,10);
     state.idUser = props.match.params.id;
 
-    await api.request(API_TYPES.SPENDINGS).create(state);
+    await api.request(API_TYPES.SPENDINGS).create("/AddSpending/",state);
 
   }
 
@@ -112,14 +113,13 @@ export default function SpendingNew(props) {
                     native
                     value={state.carId}
                     onChange={handleChange}
-                    name="carId"
+                    id="carId"
                     required
                     fullWidth="true"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
-                      id: 'carId',
                     }}
                   >
                     <option aria-label="None" value="" />
@@ -134,14 +134,13 @@ export default function SpendingNew(props) {
                     native
                     value={state.cost}
                     onChange={handleChange}
-                    name="costId"
+                    id="costId"
                     fullWidth="true"
                     required
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
-                      id: 'cost',
                     }}
                   >
                     <option aria-label="None" value="" />
@@ -156,13 +155,13 @@ export default function SpendingNew(props) {
                   <CustomInput
                     labelText="Enter price"
                     id="price"
-                    name="price"
-                    onChange={handleChange}
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
-
+                      onChange: handleChange,
+                      value: state.price,
+                      type: "number"
                     }}
                   />
                 </GridItem>

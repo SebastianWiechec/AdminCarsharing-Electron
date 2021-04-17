@@ -43,7 +43,7 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import logList from "views/Logs/logs";
 import SignInSide from "views/SignIn/SignIn";
 
-localStorage.setItem("role", "admin");
+localStorage.setItem("role", "user");
 const role = localStorage.getItem("role");
 
 const dashboardRoutes = [

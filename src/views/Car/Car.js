@@ -41,9 +41,9 @@ const styles = {
 export default function CarProfile(props) {
 
 
-  const [car, setCar] = useState({idCar:0});
+  const [car, setCar] = useState({ idCar: 0 });
 
-  
+
 
   const useStyles = makeStyles(styles);
   const classes = useStyles();
@@ -57,8 +57,8 @@ export default function CarProfile(props) {
     });
   };
 
-  
-  async function SendData(){
+
+  async function SendData() {
 
     car.idCar = parseInt(car.idCar);
     car.yofProd = parseInt(car.yofProd);
@@ -66,13 +66,8 @@ export default function CarProfile(props) {
     car.priceDay = parseFloat(car.priceDay);
     car.isAvailable = parseInt(car.isAvailable);
     car.segment = parseInt(car.segment);
-    car.insurance = new Date (car.insurance);
-    car.techRev = new Date (car.techRev);
-    // state.idSpendings = 0;
-    // state.carId = parseInt(state.carId);
-    // state.costId = parseInt(state.costId);
-    // state.Date = new Date().toISOString().slice(0,10);
-    // state.idUser = props.match.params.id;
+    car.insurance = new Date(car.insurance);
+    car.techRev = new Date(car.techRev);
 
     await api.request(API_TYPES.CAR).create(car);
 
@@ -88,7 +83,7 @@ export default function CarProfile(props) {
               <p className={classes.cardCategoryWhite}>Complete Car Info</p>
             </CardHeader>
             <CardBody>
-              <GridContainer> 
+              <GridContainer>
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
@@ -99,23 +94,23 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange,
                       type: "number"
                     }}
                   />
 
                 </GridItem>
-                
+
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Manufacturer"
-                    id="manufacturer"
+                    id="manufacturer" 
                     formControlProps={{
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -129,7 +124,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -143,7 +138,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -157,7 +152,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -171,7 +166,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -185,7 +180,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -199,13 +194,13 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
                 </GridItem>
 
-                
+
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Insurance valid from (yyyy-mm-dd)"
@@ -214,7 +209,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -228,7 +223,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -242,7 +237,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -256,7 +251,7 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
@@ -270,16 +265,16 @@ export default function CarProfile(props) {
                       fullWidth: true
                     }}
                     required
-                     inputProps={{
+                    inputProps={{
                       onChange: handleChange
                     }}
                   />
                 </GridItem>
 
               </GridContainer>
-             </CardBody>
+            </CardBody>
             <CardFooter>
-            <Button color="primary" onClick={SendData}>Update Info</Button>
+              <Button color="primary" onClick={SendData}>Update Info</Button>
             </CardFooter>
           </Card>
         </GridItem>
