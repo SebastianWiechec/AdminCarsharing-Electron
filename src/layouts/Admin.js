@@ -95,7 +95,7 @@ export default function Admin({ ...rest }) {
   return (
     <div className={classes.wrapper}>
       <Sidebar
-        routes={routes}
+        routes={routes.filter(x=>x.name != "Car")}
         logoText={"Carsharing"}
         logo={logo}
         image={image}

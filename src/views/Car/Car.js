@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -23,7 +24,7 @@ const styles = {
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
-    marginBottom: "0"
+    marginBottom: "0",
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -32,24 +33,20 @@ const styles = {
     fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 };
 
-
-
 export default function CarProfile(props) {
-
-
   const [car, setCar] = useState({ idCar: 0 });
-
-
+  const selectedCarId = props.match.params.id;
+  console.log(selectedCarId);
 
   const useStyles = makeStyles(styles);
   const classes = useStyles();
-  console.log("tu")
+  console.log("tu");
   const handleChange = (event) => {
-    console.log("tu")
+    console.log("tu");
     const name = event.target.id;
     setCar({
       ...car,
@@ -57,9 +54,7 @@ export default function CarProfile(props) {
     });
   };
 
-
   async function SendData() {
-
     car.idCar = parseInt(car.idCar);
     car.yofProd = parseInt(car.yofProd);
     car.kilometers = parseInt(car.kilometers);
@@ -68,10 +63,29 @@ export default function CarProfile(props) {
     car.segment = parseInt(car.segment);
     car.insurance = new Date(car.insurance);
     car.techRev = new Date(car.techRev);
+    console.log(car);
 
-    await api.request(API_TYPES.CAR).create(car);
-
+    if (car.idCar != 0) {
+      await api.request(API_TYPES.CAR).update(car.id, car);
+    } else {
+      await api.request(API_TYPES.CAR).create("/", car);
+    }
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (selectedCarId != 0) {
+        const request = await api
+          .request(API_TYPES.CAR)
+          .fetchById("/" + selectedCarId);
+
+        setCar(request.data);
+        console.log(request.data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -84,34 +98,40 @@ export default function CarProfile(props) {
             </CardHeader>
             <CardBody>
               <GridContainer>
-
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
+                  {/* <CustomInput
                     labelText="Car Id"
                     id="idCar"
                     name="idCar"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    
                     required
+                    hidden
                     inputProps={{
                       onChange: handleChange,
-                      type: "number"
+                      type: "number",
+                      value: car.idCar
+                      
                     }}
-                  />
-
+                  /> */}
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Manufacturer"
-                    id="manufacturer" 
+                    id="manufacturer"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.manufacturer ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.manufacturer,
                     }}
                   />
                 </GridItem>
@@ -121,11 +141,15 @@ export default function CarProfile(props) {
                     labelText="Model"
                     id="model"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.model ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.model,
                     }}
                   />
                 </GridItem>
@@ -135,11 +159,15 @@ export default function CarProfile(props) {
                     labelText="Color"
                     id="color"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.color ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.color,
                     }}
                   />
                 </GridItem>
@@ -149,11 +177,15 @@ export default function CarProfile(props) {
                     labelText="Year of production (yyyy)"
                     id="yofProd"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.yofProd ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.yofProd,
                     }}
                   />
                 </GridItem>
@@ -163,11 +195,15 @@ export default function CarProfile(props) {
                     labelText="Kilometers"
                     id="kilometers"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.kilometers ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.kilometers,
                     }}
                   />
                 </GridItem>
@@ -177,11 +213,15 @@ export default function CarProfile(props) {
                     labelText="Price per day"
                     id="priceDay"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.priceDay ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.priceDay,
                     }}
                   />
                 </GridItem>
@@ -191,26 +231,33 @@ export default function CarProfile(props) {
                     labelText="Is available ? 0- no; 1- yes"
                     id="isAvailable"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.isAvailable ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.isAvailable,
                     }}
                   />
                 </GridItem>
-
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Insurance valid from (yyyy-mm-dd)"
                     id="insurance"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.insurance ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.insurance,
                     }}
                   />
                 </GridItem>
@@ -220,11 +267,15 @@ export default function CarProfile(props) {
                     labelText="Segment type 1 to 10"
                     id="segment"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.segment ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.segment,
                     }}
                   />
                 </GridItem>
@@ -234,11 +285,15 @@ export default function CarProfile(props) {
                     labelText="Registration numbers"
                     id="regNumbers"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.regNumbers ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.regNumbers,
                     }}
                   />
                 </GridItem>
@@ -248,11 +303,15 @@ export default function CarProfile(props) {
                     labelText="Path to photos"
                     id="filePath"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.filePath ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.filePath,
                     }}
                   />
                 </GridItem>
@@ -262,19 +321,24 @@ export default function CarProfile(props) {
                     labelText="Technical review from (yyyy-mm-dd)"
                     id="techRev"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     required
+                    labelProps={{
+                      shrink: car.techRev ? true : false,
+                    }}
                     inputProps={{
-                      onChange: handleChange
+                      onChange: handleChange,
+                      value: car.techRev,
                     }}
                   />
                 </GridItem>
-
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" onClick={SendData}>Update Info</Button>
+              <Button color="primary" onClick={SendData}>
+                Update Info
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>

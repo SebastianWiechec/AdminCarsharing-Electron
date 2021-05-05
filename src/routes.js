@@ -36,12 +36,14 @@ import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
-import Car from "views/Car/Car";
+import Car from "views/Car/CarList";
 import SpendingNew from "views/Spending/Spending";
 import CarProfile from "views/Car/Car";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import logList from "views/Logs/logs";
 import SignInSide from "views/SignIn/SignIn";
+import CarList from "views/Car/CarList";
+import CarAvailable from "views/Car/CarAvialable";
 
 localStorage.setItem("role", "user");
 const role = localStorage.getItem("role");
@@ -57,11 +59,11 @@ const dashboardRoutes = [
   },
   role == "admin"
     ?  {
-        path: "/Car/:id",
-        name: "Car add-edit",
+        path: "/CarList/:id",
+        name: "Car List",
         rtlName: "ملف تعريفي للمستخدم",
         icon: DriveEtaIcon,
-        component: Car,
+        component: CarList,
         layout: "/admin",
       }:
       {
@@ -87,6 +89,15 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: TableList,
     layout: "/admin",
+  }
+  ,
+  {
+    path: "/Car/:id",
+    name: "Car",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: DriveEtaIcon,
+    component: CarProfile,
+    layout: "/admin",
   },
   role == "admin"
     ? {
@@ -105,6 +116,15 @@ const dashboardRoutes = [
         component: logList,
         layout: "/admin",
       },
+      {
+        path: "/CarAvailable/:id",
+        name: "Available cars",
+        rtlName: "قائمة الجCarAvailableدول",
+        icon: "content_paste",
+        component: CarAvailable,
+        layout: "/admin",
+      }
+      
 ];
 
 export default dashboardRoutes;
